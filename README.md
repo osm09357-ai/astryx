@@ -1,6 +1,6 @@
 # ASTRYX
 
-Multipurpose Discord bot with slash, prefix, and hybrid commands.
+Multipurpose Discord bot with slash, prefix, and hybrid commands. 
 
 ## Setup
 
