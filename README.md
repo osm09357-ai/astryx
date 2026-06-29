@@ -9,7 +9,7 @@ A powerful, fast, and feature-rich Discord bot built with **discord.js v14**.
 [![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=for-the-badge&logo=node.js&logoColor=white)]()
 [![Discord.js](https://img.shields.io/badge/discord.js-v14-5865F2?style=for-the-badge&logo=discord&logoColor=white)]()
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-336791?style=for-the-badge&logo=postgresql&logoColor=white)]()
-[![License](https://img.shields.io/badge/License-ISC-blue?style=for-the-badge)]()
+[![License](https://img.shields.io/badge/License-MELON%20OSL-purple?style=for-the-badge)]()
 
 *Built for communities of every size.*
 
@@ -19,77 +19,56 @@ A powerful, fast, and feature-rich Discord bot built with **discord.js v14**.
 
 # ✨ Features
 
-ASTRYX combines everything you need into one bot.
+ASTRYX combines everything you need into one powerful Discord bot.
 
 | Category | Description |
-| :------ | :---------- |
+| :-------- | :---------- |
 | 🛡️ Moderation | Ban, Kick, Mute, Timeout, Lock, Unlock, Slowmode, Tempban, Softban |
-| ⚔️ Antinuke | Advanced protection against malicious server attacks |
-| 🚔 Automod | Automatic spam, scam, invite, and abuse detection |
+| ⚔️ Antinuke | Advanced protection against raids and malicious actions |
+| 🚔 Automod | Automatic spam, invite, scam and abuse protection |
 | 🎵 Music | High-quality music powered by Lavalink |
-| 🤖 AI | AI chat, image analysis, intelligent utilities |
-| 🎫 Tickets | Complete support ticket system |
-| 🎭 Reaction Roles | Self-assignable roles with reactions |
-| 👋 Welcome System | Custom welcome and farewell messages |
-| 📝 Logging | Comprehensive server activity logging |
+| 🤖 AI | AI chat, image analysis and smart utilities |
+| 🎫 Tickets | Fully configurable support ticket system |
+| 🎭 Reaction Roles | Self-assignable roles using reactions |
+| 👋 Welcome | Custom welcome and farewell messages |
+| 📝 Logging | Comprehensive server logging |
 | 🎁 Giveaways | Create and manage giveaways |
-| 📊 Statistics | Server, member, and bot statistics |
+| 📊 Statistics | Server and user statistics |
 | 😄 Fun | Memes, Truth or Dare, Roleplay, Fake Messages |
 | 🔍 Utility | Avatar, Banner, User Info, Server Info, Ping and more |
-| 📁 Export Tools | Export channels, roles, members and server data |
-| 🔄 Converters | Base, Unit, Text and Encoding converters |
-| 🐾 Animals | Random adorable animal images |
+| 📁 Export | Export channels, members, roles and server data |
+| 🔄 Converters | Unit, Base, Text and Encoding converters |
+| 🐾 Animals | Random adorable animal pictures |
 | 💰 Crypto | Cryptocurrency prices and information |
 | 📚 Wikipedia | Search Wikipedia instantly |
 | 📰 News | Latest news headlines |
 
 ---
 
-<<<<<<< HEAD
-1. **Copy the env file**:
-   ```bash
-   cp .env.example .env
-   ```
-2. **Fill in your details** in `.env`:
-   - Discord bot token
-   - Client ID
-   - Owner ID
-   - Database URL (PostgreSQL)
-   - Optional: Lavalink config, API keys, etc.
-3. **Install dependencies**:
-   ```bash
-   npm install
-   ```
-4. **Start the bot**:
-   ```bash
-   npm start
-   ```
-=======
 # 🚀 Installation
->>>>>>> 954307f6a6c4f736099b719d9abef665a6cdbaab
 
-## 1. Clone the repository
+### 1. Clone the repository
 
 ```bash
 git clone <repository-url>
 cd ASTRYX
 ```
 
-## 2. Install dependencies
+### 2. Install dependencies
 
 ```bash
 npm install
 ```
 
-## 3. Configure environment variables
+### 3. Configure the environment
 
-Copy the example file.
+Copy the example environment file.
 
 ```bash
 cp .env.example .env
 ```
 
-Fill in your credentials.
+Edit `.env` with your credentials.
 
 ```env
 DISCORD_TOKEN=
@@ -104,10 +83,9 @@ LAVALINK_PORT=
 LAVALINK_PASSWORD=
 
 OPENAI_API_KEY=
-...
 ```
 
-## 4. Start the bot
+### 4. Start the bot
 
 ```bash
 npm start
@@ -140,14 +118,14 @@ npm start
 
 # 📁 Project Structure
 
-```
+```text
 src/
 ├── commands/
 ├── events/
 ├── handlers/
 ├── models/
-├── utils/
 ├── services/
+├── utils/
 └── index.js
 ```
 
@@ -161,30 +139,28 @@ src/
 <img src="https://lanyard.cnrad.dev/api/1124248109472550993?bg=1a1b26&idleMessage=Probably%20building%20something..." width="100%">
 </a>
 
-### itsfizys
+## itsfizys
 
-Special thanks for the development and inspiration behind this project.
+Special thanks for the development and inspiration behind ASTRYX.
 
 </div>
 
-<<<<<<< HEAD
-## 📄 License
-
-This project is licensed under the **MELON OPEN SOURCE LICENSE**. See the [LICENSE](./LICENSE) file for more details.
-
-© 2026 itsfizys (Aegis)
-=======
 ---
 
 # 📄 License
 
-This project is licensed under the **ISC License**.
+This project is licensed under the **MELON OPEN SOURCE LICENSE**.
+
+See the [LICENSE](./LICENSE) file for complete terms and conditions.
+
+© 2026 **itsfizys (Aegis)**
 
 ---
 
 <div align="center">
 
+⭐ If you enjoy this project, consider giving it a star!
+
 Made with ❤️ for Discord communities.
 
 </div>
->>>>>>> 954307f6a6c4f736099b719d9abef665a6cdbaab
