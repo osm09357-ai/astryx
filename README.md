@@ -1,37 +1,51 @@
 <div align="center">
-  <h1>🌟 ASTRYX 🌟</h1>
-  <p>Multipurpose Discord Bot packed with tons of features!</p>
-  <br>
+
+# ✨ ASTRYX
+
+### The Ultimate Multipurpose Discord Bot
+
+A powerful, fast, and feature-rich Discord bot built with **discord.js v14**.
+
+[![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=for-the-badge&logo=node.js&logoColor=white)]()
+[![Discord.js](https://img.shields.io/badge/discord.js-v14-5865F2?style=for-the-badge&logo=discord&logoColor=white)]()
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-336791?style=for-the-badge&logo=postgresql&logoColor=white)]()
+[![License](https://img.shields.io/badge/License-ISC-blue?style=for-the-badge)]()
+
+*Built for communities of every size.*
+
 </div>
 
-## 🎉 Features
+---
 
-Here's what ASTRYX can do:
+# ✨ Features
 
-| Category | Features |
-|----------|----------|
-| 🎵 Music | Play, pause, skip, queue, and more with Lavalink |
-| 🛡️ Moderation | Kick, ban, mute, lock, slowmode, softban, tempban |
-| 😄 Fun | Memes, truth or dare, roleplay, fake messages |
-| 🔍 General | Avatar, banner, server info, user info, ping |
-| 🤖 AI | Chat with AI, image analysis |
-| 🎁 Giveaways | Host and manage giveaways |
-| ⚔️ Antinuke | Protect your server from raids |
-| 🚔 Automod | Auto-moderation tools |
-| 🎫 Tickets | Support ticket system |
-| 🎭 Reaction Roles | Let users self-assign roles |
-| 👋 Welcome/Farewell | Custom welcome/goodbye messages |
-| 📝 Logging | Log server and user events |
-| 📊 Stats | Server and user statistics |
-| 📁 Files | Dump server data to files |
-| 🔄 Conversions | Unit, base, and text conversions |
-| 🐾 Animals | Cute animal pictures |
-| 💰 Crypto | Check crypto prices |
-| 📚 Wikipedia | Search Wikipedia |
+ASTRYX combines everything you need into one bot.
+
+| Category | Description |
+| :------ | :---------- |
+| 🛡️ Moderation | Ban, Kick, Mute, Timeout, Lock, Unlock, Slowmode, Tempban, Softban |
+| ⚔️ Antinuke | Advanced protection against malicious server attacks |
+| 🚔 Automod | Automatic spam, scam, invite, and abuse detection |
+| 🎵 Music | High-quality music powered by Lavalink |
+| 🤖 AI | AI chat, image analysis, intelligent utilities |
+| 🎫 Tickets | Complete support ticket system |
+| 🎭 Reaction Roles | Self-assignable roles with reactions |
+| 👋 Welcome System | Custom welcome and farewell messages |
+| 📝 Logging | Comprehensive server activity logging |
+| 🎁 Giveaways | Create and manage giveaways |
+| 📊 Statistics | Server, member, and bot statistics |
+| 😄 Fun | Memes, Truth or Dare, Roleplay, Fake Messages |
+| 🔍 Utility | Avatar, Banner, User Info, Server Info, Ping and more |
+| 📁 Export Tools | Export channels, roles, members and server data |
+| 🔄 Converters | Base, Unit, Text and Encoding converters |
+| 🐾 Animals | Random adorable animal images |
+| 💰 Crypto | Cryptocurrency prices and information |
+| 📚 Wikipedia | Search Wikipedia instantly |
 | 📰 News | Latest news headlines |
 
-## 🚀 Setup
+---
 
+<<<<<<< HEAD
 1. **Copy the env file**:
    ```bash
    cp .env.example .env
@@ -50,38 +64,127 @@ Here's what ASTRYX can do:
    ```bash
    npm start
    ```
+=======
+# 🚀 Installation
+>>>>>>> 954307f6a6c4f736099b719d9abef665a6cdbaab
 
-## 📜 Scripts
+## 1. Clone the repository
+
+```bash
+git clone <repository-url>
+cd ASTRYX
+```
+
+## 2. Install dependencies
+
+```bash
+npm install
+```
+
+## 3. Configure environment variables
+
+Copy the example file.
+
+```bash
+cp .env.example .env
+```
+
+Fill in your credentials.
+
+```env
+DISCORD_TOKEN=
+CLIENT_ID=
+OWNER_ID=
+
+DATABASE_URL=
+
+# Optional
+LAVALINK_HOST=
+LAVALINK_PORT=
+LAVALINK_PASSWORD=
+
+OPENAI_API_KEY=
+...
+```
+
+## 4. Start the bot
+
+```bash
+npm start
+```
+
+---
+
+# 📜 Available Scripts
 
 | Command | Description |
-|---------|-------------|
-| `npm start` | Run the bot |
-| `npm run check` | Syntax check all JavaScript files |
+| :------ | :---------- |
+| `npm start` | Start the bot |
+| `npm run check` | Check project for syntax errors |
 | `npm run emojis:upload` | Upload application emojis |
-| `npm run emojis:dry-run` | Dry-run emoji upload |
+| `npm run emojis:dry-run` | Preview emoji upload |
 
-## 🛠️ Tech Stack
+---
 
-- **Node.js** - Runtime
-- **discord.js v14** - Discord API wrapper
-- **Sequelize ORM** - Database ORM
-- **PostgreSQL** - Database
-- **Lavalink** - Music streaming
-- **Express** - Web server
-- **Canvas** - Image generation
+# 🛠️ Tech Stack
 
-## 🙏 Credits
+- Node.js
+- discord.js v14
+- PostgreSQL
+- Sequelize ORM
+- Lavalink
+- Express
+- Canvas
+
+---
+
+# 📁 Project Structure
+
+```
+src/
+├── commands/
+├── events/
+├── handlers/
+├── models/
+├── utils/
+├── services/
+└── index.js
+```
+
+---
+
+# ❤️ Credits
 
 <div align="center">
-  <a href="https://discord.com/users/1124248109472550993">
-    <img src="https://lanyard.cnrad.dev/api/1124248109472550993?bg=1a1b26&idleMessage=Probably%20doing%20something%20cool..." alt="itsfizys's Discord Presence" width="100%">
-  </a>
-  <br><br>
-  <b>itsfizys</b>
+
+<a href="https://discord.com/users/1124248109472550993">
+<img src="https://lanyard.cnrad.dev/api/1124248109472550993?bg=1a1b26&idleMessage=Probably%20building%20something..." width="100%">
+</a>
+
+### itsfizys
+
+Special thanks for the development and inspiration behind this project.
+
 </div>
 
+<<<<<<< HEAD
 ## 📄 License
 
 This project is licensed under the **MELON OPEN SOURCE LICENSE**. See the [LICENSE](./LICENSE) file for more details.
 
 © 2026 itsfizys (Aegis)
+=======
+---
+
+# 📄 License
+
+This project is licensed under the **ISC License**.
+
+---
+
+<div align="center">
+
+Made with ❤️ for Discord communities.
+
+</div>
+>>>>>>> 954307f6a6c4f736099b719d9abef665a6cdbaab
