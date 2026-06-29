@@ -32,6 +32,7 @@ Here's what ASTRYX can do:
 
 ## 🚀 Setup
 
+<<<<<<< HEAD
 1. **Copy the env file**:
    ```bash
    cp .env.example .env
@@ -83,3 +84,8 @@ Here's what ASTRYX can do:
 ## �� License
 
 ISC
+=======
+- `npm start` - run the bot.
+- `npm run check` - syntax-check project JavaScript files.
+-  `credits` - itsfizys
+>>>>>>> 8df82033c717cc3e6e7c4d2169a24dfa8f5d453e
