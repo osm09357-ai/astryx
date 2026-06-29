@@ -60,12 +60,12 @@ cd ASTRYX
 npm install
 ```
 
-### 3. Configure the environment
+### 3. Emoji Copy
 
-Copy the example environment file.
+Emoji Sync
 
 ```bash
-cp .env.example .env
+node scripts/upload-application-emojis.js --write-source 
 ```
 
 Edit `.env` with your credentials.
