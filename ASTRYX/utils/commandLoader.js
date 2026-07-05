@@ -1,16 +1,17 @@
-
-
-
-const fs = require('fs');
-const path = require('path');
-const { printLoading, printSuccess, printInfo, printWarn: printWarning, printError } = require('./consoleLogger');
+const fs = require("fs");
+const path = require("path");
+const {
+    printLoading,
+    printSuccess,
+    printInfo,
+    printWarn: printWarning,
+    printError,
+} = require("./consoleLogger");
 
 function getAllJsFiles(dir, skipSubcommandsDirs = false) {
     const files = [];
 
-    if (!fs.existsSync(dir)) {
-        return files;
-    }
+    if (!fs.existsSync(dir)) return files;
 
     const entries = fs.readdirSync(dir, { withFileTypes: true });
 
@@ -18,15 +19,11 @@ function getAllJsFiles(dir, skipSubcommandsDirs = false) {
         const fullPath = path.join(dir, entry.name);
 
         if (entry.isDirectory()) {
-            if (skipSubcommandsDirs && entry.name === 'subcommands') {
-                continue;
-            }
+            if (skipSubcommandsDirs && entry.name === "subcommands") continue;
+            if (entry.name === "music") continue;
 
-            if (entry.name === 'music') {
-                continue;
-            }
             files.push(...getAllJsFiles(fullPath, skipSubcommandsDirs));
-        } else if (entry.isFile() && entry.name.endsWith('.js')) {
+        } else if (entry.isFile() && entry.name.endsWith(".js")) {
             files.push(fullPath);
         }
     }
@@ -34,157 +31,173 @@ function getAllJsFiles(dir, skipSubcommandsDirs = false) {
     return files;
 }
 
-function loadSlashCommands(client, commandsPath) {
+function logFullError(relativePath, error) {
+    printError(`Failed loading: ${relativePath}`);
+    console.error(error.stack || error);
+}
 
-    printLoading('Command modules');
+function loadSlashCommands(client, commandsPath) {
+    printLoading("Command modules");
 
     const files = getAllJsFiles(commandsPath, true);
+
     let loaded = 0;
     let errors = [];
 
     for (const filePath of files) {
+        const relativePath = path.relative(commandsPath, filePath);
+
         try {
+            delete require.cache[require.resolve(filePath)];
+
             const command = require(filePath);
 
-            if ('data' in command && 'execute' in command) {
+            if (command?.data && command?.execute) {
                 client.commands.set(command.data.name, command);
                 loaded++;
             }
         } catch (error) {
-            const relativePath = path.relative(commandsPath, filePath);
-            errors.push(`${relativePath}: ${error.message}`);
+            errors.push(relativePath);
+            logFullError(relativePath, error);
         }
     }
 
     printSuccess(`Command modules loaded (${loaded} commands)`);
 
-    if (errors.length > 0) {
+    if (errors.length)
         printWarning(`Failed to load ${errors.length} command files`);
-        errors.forEach(err => printError(err));
-    }
 
     return { loaded, errors };
 }
 
 function loadPrefixCommands(client, pCommandsPath) {
+    printLoading("Prefix command modules");
 
-    printLoading('Prefix command modules');
+    const files = getAllJsFiles(pCommandsPath);
 
-    const files = getAllJsFiles(pCommandsPath, false);
     let loaded = 0;
     let skipped = 0;
     let errors = [];
 
     for (const filePath of files) {
         const relativePath = path.relative(pCommandsPath, filePath);
-        const pathParts = relativePath.split(path.sep);
 
-        if (pathParts.length > 2) {
-            continue;
-        }
+        const parts = relativePath.split(path.sep);
 
-        if (pathParts.length === 2) {
-            const [dirName, fileName] = pathParts;
-            const fileNameWithoutExt = fileName.replace('.js', '');
-            const mainCommandPath = path.join(pCommandsPath, dirName, `${dirName}.js`);
+        if (parts.length > 2) continue;
 
-            if (fs.existsSync(mainCommandPath) && fileNameWithoutExt !== dirName) {
+        if (parts.length === 2) {
+            const [dirName, fileName] = parts;
+
+            const mainCommand = path.join(
+                pCommandsPath,
+                dirName,
+                `${dirName}.js`
+            );
+
+            if (
+                fs.existsSync(mainCommand) &&
+                fileName !== `${dirName}.js`
+            ) {
                 continue;
             }
         }
 
         try {
+            delete require.cache[require.resolve(filePath)];
+
             const command = require(filePath);
 
-            if ('name' in command && 'execute' in command) {
+            if (command?.name && command?.execute) {
                 client.prefixCommands.set(command.name, command);
 
-                if (command.aliases && Array.isArray(command.aliases)) {
-                    command.aliases.forEach(alias => {
+                if (Array.isArray(command.aliases)) {
+                    for (const alias of command.aliases) {
                         client.prefixCommands.set(alias, command);
-                    });
+                    }
                 }
+
                 loaded++;
             } else {
                 skipped++;
             }
         } catch (error) {
-            errors.push(`${relativePath}: ${error.message}`);
+            errors.push(relativePath);
+            logFullError(relativePath, error);
         }
     }
 
     printSuccess(`Prefix command modules loaded (${loaded} commands)`);
 
-    if (skipped > 0) {
-        printInfo(`Skipped ${skipped} files (missing name or execute)`);
-    }
+    if (skipped)
+        printInfo(`Skipped ${skipped} invalid files`);
 
-    if (errors.length > 0) {
+    if (errors.length)
         printWarning(`Failed to load ${errors.length} prefix command files`);
-        errors.forEach(err => printError(err));
-    }
 
     return { loaded, skipped, errors };
 }
 
 function loadHybridCommands(client, hybridPath) {
-    printLoading('Hybrid command modules');
+    printLoading("Hybrid command modules");
 
     if (!fs.existsSync(hybridPath)) {
-        printInfo('No hybrid directory found, skipping hybrid command loading');
+        printInfo("No hybrid directory found.");
         return { loaded: 0, errors: [] };
     }
 
-    const dirs = fs.readdirSync(hybridPath, { withFileTypes: true })
-        .filter(entry => entry.isDirectory());
+    const dirs = fs
+        .readdirSync(hybridPath, { withFileTypes: true })
+        .filter((d) => d.isDirectory());
 
     let loaded = 0;
     let errors = [];
 
     for (const dir of dirs) {
-        const commandPath = path.join(hybridPath, dir.name, `${dir.name}.js`);
+        const filePath = path.join(hybridPath, dir.name, `${dir.name}.js`);
 
-        if (!fs.existsSync(commandPath)) {
-            continue;
-        }
+        if (!fs.existsSync(filePath)) continue;
 
         try {
-            const command = require(commandPath);
+            delete require.cache[require.resolve(filePath)];
 
-            if ('data' in command && 'execute' in command) {
+            const command = require(filePath);
+
+            if (command?.data && command?.execute) {
                 client.commands.set(command.data.name, command);
                 loaded++;
             }
 
-            if ('name' in command && 'execute' in command) {
+            if (command?.name && command?.execute) {
                 client.prefixCommands.set(command.name, command);
 
-                if (command.aliases && Array.isArray(command.aliases)) {
-                    command.aliases.forEach(alias => {
+                if (Array.isArray(command.aliases)) {
+                    for (const alias of command.aliases) {
                         client.prefixCommands.set(alias, command);
-                    });
+                    }
                 }
             }
         } catch (error) {
-            errors.push(`${dir.name}/${dir.name}.js: ${error.message}`);
+            errors.push(dir.name);
+            logFullError(`${dir.name}/${dir.name}.js`, error);
         }
     }
 
     printSuccess(`Hybrid command modules loaded (${loaded} commands)`);
 
-    if (errors.length > 0) {
+    if (errors.length)
         printWarning(`Failed to load ${errors.length} hybrid command files`);
-        errors.forEach(err => printError(err));
-    }
 
     return { loaded, errors };
 }
 
 function clearCommandCache(basePath) {
-    Object.keys(require.cache).forEach(key => {
-        if (key.includes(`${basePath}${path.sep}commands${path.sep}`) ||
+    Object.keys(require.cache).forEach((key) => {
+        if (
+            key.includes(`${basePath}${path.sep}commands${path.sep}`) ||
             key.includes(`${basePath}${path.sep}pCommands${path.sep}`) ||
-            key.includes(`${basePath}${path.sep}hybrid${path.sep}`)) {
+            key.includes(`${basePath}${path.sep}hybrid${path.sep}`)
+        ) {
             delete require.cache[key];
         }
     });
@@ -196,20 +209,26 @@ function reloadAllCommands(client, basePath) {
 
     clearCommandCache(basePath);
 
-    const commandsPath = path.join(basePath, 'commands');
-    const pCommandsPath = path.join(basePath, 'pCommands');
-    const hybridPath = path.join(basePath, 'hybrid');
+    const slash = loadSlashCommands(
+        client,
+        path.join(basePath, "commands")
+    );
 
-    const slashResult = loadSlashCommands(client, commandsPath);
-    const prefixResult = loadPrefixCommands(client, pCommandsPath);
-    const hybridResult = loadHybridCommands(client, hybridPath);
+    const prefix = loadPrefixCommands(
+        client,
+        path.join(basePath, "pCommands")
+    );
+
+    const hybrid = loadHybridCommands(
+        client,
+        path.join(basePath, "hybrid")
+    );
 
     return {
         success: true,
-        message: `Reloaded ${slashResult.loaded} slash commands, ${prefixResult.loaded} prefix commands, and ${hybridResult.loaded} hybrid commands`,
-        slash: slashResult,
-        prefix: prefixResult,
-        hybrid: hybridResult
+        slash,
+        prefix,
+        hybrid,
     };
 }
 
@@ -220,8 +239,4 @@ module.exports = {
     loadHybridCommands,
     clearCommandCache,
     reloadAllCommands,
-    printLoading,
-    printSuccess,
-    printInfo,
-    printWarning
 };
